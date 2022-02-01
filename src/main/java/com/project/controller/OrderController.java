@@ -116,7 +116,14 @@ public class OrderController {
     public ResponseEntity<?> cancelOrder(@PathVariable("orderId") Integer orderId) {
         Optional<Order> order = orderService.findOrderById(orderId);
         order.get().setOrderStatus(OrderStatus.CANCELED);
-
+        List<OrderDetail> ordersDetails = orderService.findAllOrdersDetailsByOrder(order.get());
+        for (OrderDetail ordDetail : ordersDetails){
+            List<Product> products = productService.findAllProductsByOrderDetails(ordDetail);
+            for (Product p : products){
+                p.setStock(p.getStock() + ordDetail.getQuantity());
+                productService.saveProduct(p);
+            }
+        }
         orderService.saveOrder(order.get());
         return new ResponseEntity<>(HttpStatus.OK);
     }

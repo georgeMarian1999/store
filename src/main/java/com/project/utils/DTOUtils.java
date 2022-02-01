@@ -12,7 +12,7 @@ public class DTOUtils {
     public static UserDTO userToDto(User user) {
         UserDTO udto = new UserDTO();
         udto.setEmail(user.getEmail());
-        udto.setFirstName(user.getName());
+        udto.setName(user.getName());
         udto.setUsername(user.getUsername());
         udto.setPassword(user.getPassword());
         if (user.getRole() != null) {

@@ -2,24 +2,22 @@ package com.project.model.dto;
 
 
 public class UserDTO  {
-
+    private Integer id;
     private String username;
     private String password;
     private String email;
-    private String firstName;
-    private String lastName;
+    private String name;
     private String role;
 
     public UserDTO() {
 
     }
 
-    public UserDTO(String username, String password, String email, String firstName, String lastName, String role) {
+    public UserDTO(String username, String password, String email, String name, String role) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
         this.role = role;
     }
 
@@ -31,14 +29,9 @@ public class UserDTO  {
         this.username = username;
     }
 
-
-
-
     public String getPassword() {
         return password;
     }
-
-
 
     public void setPassword(String password) {
         this.password = password;
@@ -52,20 +45,20 @@ public class UserDTO  {
         this.email = email;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public Integer getId() {
+        return id;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getName() {
+        return name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getRole() {
