@@ -40,7 +40,7 @@ public class UserController {
         User userLogin = userService.findByUsernameAndPassword(username, password);
         if (userLogin != null) {
             if (userLogin.getPassword().equals(password))
-                return new ResponseEntity<>(new ResponseDTO("user", userLogin.getFirstName() + userLogin.getLastName()), HttpStatus.OK);
+                return new ResponseEntity<>(new ResponseDTO("user", userLogin.getName()), HttpStatus.OK);
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

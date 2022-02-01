@@ -24,8 +24,7 @@ public class OrderDetail {
 
     }
 
-    public OrderDetail(Integer id, Order order, Product product, Integer quantity) {
-        this.id = id;
+    public OrderDetail(Order order, Product product, Integer quantity) {
         this.order = order;
         this.product = product;
         this.quantity = quantity;
@@ -63,9 +62,4 @@ public class OrderDetail {
         this.quantity = quantity;
     }
 
-    public OrderDetail(Order order, Product product, Integer quantity) {
-        this.order = order;
-        this.product = product;
-        this.quantity = quantity;
-    }
 }

@@ -31,11 +31,15 @@ public class ProductService {
         return productRepository.findById(productId);
     }
 
-    public List<Product> findProductsByCategory(Integer categoryId) {
-        return productRepository.findAllByCategory(categoryId);
+    public List<Product> findProductsByCategory(Category category) {
+        return productRepository.findAllByCategory(category);
     }
 
     public List<Product> findAllProductsByOrderDetails(OrderDetail orderDetail) {
         return productRepository.findAllByOrderDetails(orderDetail);
+    }
+
+    public void saveProduct(Product product) {
+        productRepository.save(product);
     }
 }

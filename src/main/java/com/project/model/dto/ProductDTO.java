@@ -16,11 +16,11 @@ public class ProductDTO {
     Integer stock;
     Date addedDate;
     Integer sale;
-    Double stars;
+    Integer stars;
     Category category;
     List<Review> reviews;
 
-    public ProductDTO(Integer id, String name, String description, String image, Boolean newProduct, Float price, Integer stock, Date addedDate, Integer sale, Double stars, Category category, List<Review> reviews) {
+    public ProductDTO(Integer id, String name, String description, String image, Boolean newProduct, Float price, Integer stock, Date addedDate, Integer sale, Integer stars, Category category, List<Review> reviews) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -109,11 +109,11 @@ public class ProductDTO {
         this.sale = sale;
     }
 
-    public Double getStars() {
+    public Integer getStars() {
         return stars;
     }
 
-    public void setStars(Double stars) {
+    public void setStars(Integer stars) {
         this.stars = stars;
     }
 

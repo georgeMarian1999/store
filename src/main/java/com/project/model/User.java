@@ -12,8 +12,7 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private String firstName;
-    private String lastName;
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "id_role")
@@ -31,13 +30,12 @@ public class User {
 
     }
 
-    public User(Integer id, String username, String password, String email, String firstName, String lastName) {
+    public User(Integer id, String username, String password, String email, String name) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
     }
 
     @Override
@@ -47,8 +45,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 
@@ -76,20 +73,12 @@ public class User {
         this.email = email;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setId(Integer id) {

@@ -22,6 +22,8 @@ public class OrderDTO {
     private Float shipping;
     List<ProductOrderDTO> productOrderDTOList;
 
+    public OrderDTO() {}
+
     public OrderDTO(Integer id, String phone, String street, String apartment, String city, String country, Long postcode, Float subtotal, Float taxes, Float total, OrderStatus orderStatus, Date date, Float shipping, List<ProductOrderDTO> productOrderDTOList) {
         this.id = id;
         this.phone = phone;

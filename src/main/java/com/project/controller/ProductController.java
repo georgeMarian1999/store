@@ -1,11 +1,11 @@
 package com.project.controller;
 
 
+import com.project.model.Category;
 import com.project.model.Product;
 import com.project.model.Review;
 import com.project.model.dto.ProductDTO;
-import com.project.model.dto.UserDTO;
-import com.project.repo.ProductRepository;
+import com.project.service.CategoryService;
 import com.project.service.ProductService;
 import com.project.service.ReviewService;
 import com.project.utils.DTOUtils;
@@ -27,6 +27,9 @@ public class ProductController {
 
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping("/all")
     public ResponseEntity<?> getAllProducts() {
@@ -88,13 +91,15 @@ public class ProductController {
     @GetMapping("/allByCategory/{categoryId}")
     public ResponseEntity<?> getAllProductsByCategory(@PathVariable("categoryId") Integer categoryId) {
         List<ProductDTO> productDTOList = new ArrayList<>();
-        productService.findProductsByCategory(categoryId)
-                .forEach(product -> {
-                    List<Review> reviewsList = reviewService.findAllReviewsByProduct(Optional.ofNullable(product));
-                    if (product != null) {
-                        productDTOList.add(DTOUtils.productToDto(product, reviewsList));
-                    }
-                });
+        Optional<Category> category = categoryService.findCategoryById(categoryId);
+        category.ifPresent(value ->
+                productService.findProductsByCategory(value)
+                        .forEach(product -> {
+                            List<Review> reviewsList = reviewService.findAllReviewsByProduct(Optional.ofNullable(product));
+                            if (product != null) {
+                            productDTOList.add(DTOUtils.productToDto(product, reviewsList));
+                            }
+                        }));
         if (productDTOList.size() > 0)
             return new ResponseEntity<>(productDTOList, HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
