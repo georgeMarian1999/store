@@ -3,7 +3,6 @@ package com.project.controller;
 
 import com.project.model.*;
 import com.project.model.dto.OrderDTO;
-import com.project.model.dto.ProductDTO;
 import com.project.model.dto.ProductOrderDTO;
 import com.project.model.enums.OrderStatus;
 import com.project.service.OrderService;
@@ -80,8 +79,8 @@ public class OrderController {
                                 productService.findAllProductsByOrderDetails(orderDetail)
                                         .forEach(product -> {
                                             productOrderDTOList.add(DTOUtils.productOrderToDto(product, orderDetail));
-                                            orderDTOList.add(DTOUtils.orderToDto(order, productOrderDTOList));
                                         });
+                                orderDTOList.add(DTOUtils.orderToDto(order, productOrderDTOList));
                             });
                 });
         return orderDTOList;
@@ -90,19 +89,48 @@ public class OrderController {
     @PostMapping("/placeOrder/{userId}")
     public ResponseEntity<?> placeOrder(@PathVariable("userId") Integer userId, @RequestBody OrderDTO orderDTO) {
         Optional<User> user = userService.findUserById(userId);
-        Order order = new Order(user.get(), orderDTO.getPhone(), orderDTO.getStreet(), orderDTO.getApartment(), orderDTO.getCity(), orderDTO.getCountry(), orderDTO.getPostcode(), orderDTO.getSubtotal(), orderDTO.getTaxes(), orderDTO.getTotal(), OrderStatus.PROCESSING, LocalDate.now(), orderDTO.getShipping());
-        orderService.saveOrder(order);
         List<ProductOrderDTO> productOrderDTOList = orderDTO.getProductOrderDTOList();
+        double subtotal = 0;
+        int shipping = 0;
+        double taxes = 0;
+        double total = 0;
         for (ProductOrderDTO p : productOrderDTOList) {
             Optional<Product> product = productService.findProductById(p.getId());
             int stock = product.get().getStock() - p.getQuantity();
+            subtotal = subtotal + calcSubtotal(product.get(), p.getQuantity());
             product.get().setStock(stock);
             productService.saveProduct(product.get());
+        }
+        shipping = calcShipping(subtotal);
+        taxes = calcTaxes(subtotal);
+        total = calcTotal(subtotal, taxes, shipping);
+        Order order = new Order(user.get(), orderDTO.getPhone(), orderDTO.getStreet(), orderDTO.getApartment(), orderDTO.getCity(), orderDTO.getCounty(), orderDTO.getPostcode(), (float) subtotal, (float) taxes, (float) total, OrderStatus.PROCESSING, LocalDate.now(), (float) shipping);
+        for (ProductOrderDTO p : productOrderDTOList) {
+            Optional<Product> product = productService.findProductById(p.getId());
             OrderDetail orderDetail = new OrderDetail(order, product.get(), p.getQuantity());
             orderService.saveOrderDetail(orderDetail);
         }
+        orderService.saveOrder(order);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    public Float calcSubtotal(Product product, int quantity){
+        return (product.getPrice() - (product.getPrice() * product.getSale()/100) * quantity);
+    }
+
+    public int calcShipping(double subtotal){
+        return subtotal >= 100 ? 0 : 15;
+    }
+
+    public double calcTaxes(double subtotal){
+        return (subtotal * 19) / 100;
+    }
+
+    public double calcTotal(double subtotal, double taxes, int shippping){
+        return subtotal + shippping + taxes;
+    }
+
+
 
     @PutMapping("/shipOrder/{orderId}")
     public ResponseEntity<?> shipOrder(@PathVariable("orderId") Integer orderId) {

@@ -60,7 +60,7 @@ public class DTOUtils {
         orderDTO.setStreet(order.getStreet());
         orderDTO.setApartment(order.getApartment());
         orderDTO.setCity(order.getCity());
-        orderDTO.setCountry(order.getCountry());
+        orderDTO.setCounty(order.getCounty());
         orderDTO.setPostcode(order.getPostcode());
         orderDTO.setSubtotal(order.getSubtotal());
         orderDTO.setTaxes(order.getTaxes());

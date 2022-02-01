@@ -4,8 +4,6 @@ import com.project.model.enums.OrderStatus;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -35,7 +33,7 @@ public class Order {
     private String street;
     private String apartment;
     private String city;
-    private String country;
+    private String county;
     private Long postcode;
     private Float subtotal;
     private Float taxes;
@@ -44,13 +42,13 @@ public class Order {
     private LocalDate date;
     private Float shipping;
 
-    public Order( User user, String phone, String street, String apartment, String city, String country, Long postcode, Float subtotal, Float taxes, Float total, OrderStatus orderStatus, LocalDate date, Float shipping) {
+    public Order( User user, String phone, String street, String apartment, String city, String county, Long postcode, Float subtotal, Float taxes, Float total, OrderStatus orderStatus, LocalDate date, Float shipping) {
         this.user = user;
         this.phone = phone;
         this.street = street;
         this.apartment = apartment;
         this.city = city;
-        this.country = country;
+        this.county = county;
         this.postcode = postcode;
         this.subtotal = subtotal;
         this.taxes = taxes;
@@ -67,7 +65,7 @@ public class Order {
         this.street = street;
         this.apartment = apartment;
         this.city = city;
-        this.country = country;
+        this.county = country;
         this.postcode = postcode;
         this.subtotal = subtotal;
         this.taxes = taxes;
@@ -129,12 +127,12 @@ public class Order {
         this.city = city;
     }
 
-    public String getCountry() {
-        return country;
+    public String getCounty() {
+        return county;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCounty(String country) {
+        this.county = country;
     }
 
     public Long getPostcode() {

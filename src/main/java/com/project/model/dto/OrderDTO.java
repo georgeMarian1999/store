@@ -1,10 +1,8 @@
 package com.project.model.dto;
 
-import com.project.model.User;
 import com.project.model.enums.OrderStatus;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 public class OrderDTO {
@@ -13,7 +11,7 @@ public class OrderDTO {
     private String street;
     private String apartment;
     private String city;
-    private String country;
+    private String county;
     private Long postcode;
     private Float subtotal;
     private Float taxes;
@@ -25,13 +23,13 @@ public class OrderDTO {
 
     public OrderDTO() {}
 
-    public OrderDTO(Integer id, String phone, String street, String apartment, String city, String country, Long postcode, Float subtotal, Float taxes, Float total, OrderStatus orderStatus, LocalDate date, Float shipping, List<ProductOrderDTO> productOrderDTOList) {
+    public OrderDTO(Integer id, String phone, String street, String apartment, String city, String county, Long postcode, Float subtotal, Float taxes, Float total, OrderStatus orderStatus, LocalDate date, Float shipping, List<ProductOrderDTO> productOrderDTOList) {
         this.id = id;
         this.phone = phone;
         this.street = street;
         this.apartment = apartment;
         this.city = city;
-        this.country = country;
+        this.county = county;
         this.postcode = postcode;
         this.subtotal = subtotal;
         this.taxes = taxes;
@@ -82,12 +80,12 @@ public class OrderDTO {
         this.city = city;
     }
 
-    public String getCountry() {
-        return country;
+    public String getCounty() {
+        return county;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCounty(String county) {
+        this.county = county;
     }
 
     public Long getPostcode() {
