@@ -72,16 +72,18 @@ public class OrderController {
 
     private List<OrderDTO> buildOrderDtoList(List<Order> orders){
         List<OrderDTO> orderDTOList = new ArrayList<>();
+        List<ProductOrderDTO> productOrderDTOList = new ArrayList<>();
         orders.forEach(order -> {
                     orderService.findAllOrdersDetailsByOrder(order)
                             .forEach(orderDetail -> {
-                                List<ProductOrderDTO> productOrderDTOList = new ArrayList<>();
+
                                 productService.findAllProductsByOrderDetails(orderDetail)
                                         .forEach(product -> {
                                             productOrderDTOList.add(DTOUtils.productOrderToDto(product, orderDetail));
                                         });
-                                orderDTOList.add(DTOUtils.orderToDto(order, productOrderDTOList));
+
                             });
+            orderDTOList.add(DTOUtils.orderToDto(order, productOrderDTOList));
                 });
         return orderDTOList;
     }
@@ -105,12 +107,13 @@ public class OrderController {
         taxes = calcTaxes(subtotal);
         total = calcTotal(subtotal, taxes, shipping);
         Order order = new Order(user.get(), orderDTO.getPhone(), orderDTO.getStreet(), orderDTO.getApartment(), orderDTO.getCity(), orderDTO.getCounty(), orderDTO.getPostcode(), (float) subtotal, (float) taxes, (float) total, OrderStatus.PROCESSING, LocalDate.now(), (float) shipping);
+        orderService.saveOrder(order);
         for (ProductOrderDTO p : productOrderDTOList) {
             Optional<Product> product = productService.findProductById(p.getId());
             OrderDetail orderDetail = new OrderDetail(order, product.get(), p.getQuantity());
             orderService.saveOrderDetail(orderDetail);
         }
-        orderService.saveOrder(order);
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
