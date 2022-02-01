@@ -1,5 +1,6 @@
 package com.project.service;
 
+import com.project.model.Role;
 import com.project.model.User;
 import com.project.repo.CartRepository;
 import com.project.repo.RoleRepository;
@@ -41,5 +42,12 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public Role findRoleByName(String roleName) {
+        return roleRepository.findByName(roleName);
+    }
+
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
 
 }
