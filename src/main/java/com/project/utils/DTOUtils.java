@@ -11,6 +11,7 @@ import java.util.List;
 public class DTOUtils {
     public static UserDTO userToDto(User user) {
         UserDTO udto = new UserDTO();
+        udto.setId(user.getId());
         udto.setEmail(user.getEmail());
         udto.setName(user.getName());
         udto.setUsername(user.getUsername());
