@@ -5,6 +5,7 @@ import com.project.model.*;
 import com.project.model.dto.OrderDTO;
 import com.project.model.dto.ProductDTO;
 import com.project.model.dto.ProductOrderDTO;
+import com.project.model.enums.OrderStatus;
 import com.project.service.OrderService;
 import com.project.service.ProductService;
 import com.project.service.UserService;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -88,7 +90,7 @@ public class OrderController {
     @PostMapping("/placeOrder/{userId}")
     public ResponseEntity<?> placeOrder(@PathVariable("userId") Integer userId, @RequestBody OrderDTO orderDTO) {
         Optional<User> user = userService.findUserById(userId);
-        Order order = new Order(orderDTO.getId(), user.get(), orderDTO.getPhone(), orderDTO.getStreet(), orderDTO.getApartment(), orderDTO.getCity(), orderDTO.getCountry(), orderDTO.getPostcode(), orderDTO.getSubtotal(), orderDTO.getTaxes(), orderDTO.getTotal(), orderDTO.getOrderStatus(), orderDTO.getDate(), orderDTO.getShipping());
+        Order order = new Order(user.get(), orderDTO.getPhone(), orderDTO.getStreet(), orderDTO.getApartment(), orderDTO.getCity(), orderDTO.getCountry(), orderDTO.getPostcode(), orderDTO.getSubtotal(), orderDTO.getTaxes(), orderDTO.getTotal(), OrderStatus.PROCESSING, LocalDate.now(), orderDTO.getShipping());
         orderService.saveOrder(order);
         List<ProductOrderDTO> productOrderDTOList = orderDTO.getProductOrderDTOList();
         for (ProductOrderDTO p : productOrderDTOList) {
@@ -99,6 +101,23 @@ public class OrderController {
             OrderDetail orderDetail = new OrderDetail(order, product.get(), p.getQuantity());
             orderService.saveOrderDetail(orderDetail);
         }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/shipOrder/{orderId}")
+    public ResponseEntity<?> shipOrder(@PathVariable("orderId") Integer orderId) {
+        Optional<Order> order = orderService.findOrderById(orderId);
+        order.get().setOrderStatus(OrderStatus.DELIVERED);
+        orderService.saveOrder(order.get());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/cancelOrder/{orderId}")
+    public ResponseEntity<?> cancelOrder(@PathVariable("orderId") Integer orderId) {
+        Optional<Order> order = orderService.findOrderById(orderId);
+        order.get().setOrderStatus(OrderStatus.CANCELED);
+
+        orderService.saveOrder(order.get());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

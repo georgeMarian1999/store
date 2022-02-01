@@ -3,6 +3,7 @@ package com.project.model.dto;
 import com.project.model.User;
 import com.project.model.enums.OrderStatus;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -18,13 +19,13 @@ public class OrderDTO {
     private Float taxes;
     private Float total;
     private OrderStatus orderStatus;
-    private Date date;
+    private LocalDate date;
     private Float shipping;
     List<ProductOrderDTO> productOrderDTOList;
 
     public OrderDTO() {}
 
-    public OrderDTO(Integer id, String phone, String street, String apartment, String city, String country, Long postcode, Float subtotal, Float taxes, Float total, OrderStatus orderStatus, Date date, Float shipping, List<ProductOrderDTO> productOrderDTOList) {
+    public OrderDTO(Integer id, String phone, String street, String apartment, String city, String country, Long postcode, Float subtotal, Float taxes, Float total, OrderStatus orderStatus, LocalDate date, Float shipping, List<ProductOrderDTO> productOrderDTOList) {
         this.id = id;
         this.phone = phone;
         this.street = street;
@@ -129,11 +130,11 @@ public class OrderDTO {
         this.orderStatus = orderStatus;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

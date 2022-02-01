@@ -3,6 +3,7 @@ package com.project.model;
 import com.project.model.enums.OrderStatus;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -40,10 +41,26 @@ public class Order {
     private Float taxes;
     private Float total;
     private OrderStatus orderStatus;
-    private Date date;
+    private LocalDate date;
     private Float shipping;
 
-    public Order(Integer id, User user, String phone, String street, String apartment, String city, String country, Long postcode, Float subtotal, Float taxes, Float total, OrderStatus orderStatus, Date date, Float shipping) {
+    public Order( User user, String phone, String street, String apartment, String city, String country, Long postcode, Float subtotal, Float taxes, Float total, OrderStatus orderStatus, LocalDate date, Float shipping) {
+        this.user = user;
+        this.phone = phone;
+        this.street = street;
+        this.apartment = apartment;
+        this.city = city;
+        this.country = country;
+        this.postcode = postcode;
+        this.subtotal = subtotal;
+        this.taxes = taxes;
+        this.total = total;
+        this.orderStatus = orderStatus;
+        this.date = date;
+        this.shipping = shipping;
+    }
+
+    public Order(Integer id, User user, String phone, String street, String apartment, String city, String country, Long postcode, Float subtotal, Float taxes, Float total, OrderStatus orderStatus, LocalDate date, Float shipping) {
         this.id = id;
         this.user = user;
         this.phone = phone;
@@ -160,11 +177,11 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
