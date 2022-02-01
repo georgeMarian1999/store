@@ -2,7 +2,6 @@ package com.project.controller;
 
 import com.project.model.Role;
 import com.project.model.User;
-import com.project.model.dto.ResponseDTO;
 import com.project.model.dto.UserDTO;
 import com.project.model.dto.UserLoginDTO;
 import com.project.service.UserService;

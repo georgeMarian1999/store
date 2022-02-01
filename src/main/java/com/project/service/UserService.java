@@ -2,7 +2,6 @@ package com.project.service;
 
 import com.project.model.Role;
 import com.project.model.User;
-import com.project.repo.CartRepository;
 import com.project.repo.RoleRepository;
 import com.project.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,7 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
-    @Autowired
-    private CartRepository cartRepository;
+
 
     public List<User> findAllUsers() {
         return (List<User>) userRepository.findAll();
