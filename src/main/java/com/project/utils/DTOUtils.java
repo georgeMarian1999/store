@@ -50,6 +50,7 @@ public class DTOUtils {
         productOrderDTO.setName(product.getName());
         productOrderDTO.setPrice(product.getPrice());
         productOrderDTO.setQuantity(orderDetail.getQuantity());
+        productOrderDTO.setSale(orderDetail.getProduct().getSale());
         return productOrderDTO;
     }
 

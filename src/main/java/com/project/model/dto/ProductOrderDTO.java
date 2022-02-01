@@ -5,6 +5,15 @@ public class ProductOrderDTO {
     String name;
     Float price;
     Integer quantity;
+    Integer sale;
+
+    public ProductOrderDTO(Integer id, String name, Float price, Integer quantity, Integer sale) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.sale = sale;
+    }
 
     public ProductOrderDTO(Integer id, String name, Float price, Integer quantity) {
         this.id = id;
@@ -45,5 +54,13 @@ public class ProductOrderDTO {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Integer getSale() {
+        return sale;
+    }
+
+    public void setSale(Integer sale) {
+        this.sale = sale;
     }
 }
