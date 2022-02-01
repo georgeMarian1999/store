@@ -1,35 +1,13 @@
-package com.project.model;
+package com.project.model.dto;
 
+import com.project.model.User;
 import com.project.model.enums.OrderStatus;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
-@Entity
-@Table(name = "orders")
-public class Order {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
-
-    @OneToMany(mappedBy = "order")
-    Set<OrderDetail> orderDetails;
-
-    public Set<OrderDetail> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(Set<OrderDetail> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    User user;
-
+public class OrderDTO {
+    private Integer id;
     private String phone;
     private String street;
     private String apartment;
@@ -42,10 +20,10 @@ public class Order {
     private OrderStatus orderStatus;
     private Date date;
     private Float shipping;
+    List<ProductOrderDTO> productOrderDTOList;
 
-    public Order(Integer id, User user, String phone, String street, String apartment, String city, String country, Long postcode, Float subtotal, Float taxes, Float total, OrderStatus orderStatus, Date date, Float shipping) {
+    public OrderDTO(Integer id, String phone, String street, String apartment, String city, String country, Long postcode, Float subtotal, Float taxes, Float total, OrderStatus orderStatus, Date date, Float shipping, List<ProductOrderDTO> productOrderDTOList) {
         this.id = id;
-        this.user = user;
         this.phone = phone;
         this.street = street;
         this.apartment = apartment;
@@ -58,10 +36,7 @@ public class Order {
         this.orderStatus = orderStatus;
         this.date = date;
         this.shipping = shipping;
-    }
-
-    public Order() {
-
+        this.productOrderDTOList = productOrderDTOList;
     }
 
     public Integer getId() {
@@ -70,14 +45,6 @@ public class Order {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getPhone() {
@@ -174,5 +141,13 @@ public class Order {
 
     public void setShipping(Float shipping) {
         this.shipping = shipping;
+    }
+
+    public List<ProductOrderDTO> getProductOrderDTOList() {
+        return productOrderDTOList;
+    }
+
+    public void setProductOrderDTOList(List<ProductOrderDTO> productOrderDTOList) {
+        this.productOrderDTOList = productOrderDTOList;
     }
 }

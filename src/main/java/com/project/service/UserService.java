@@ -22,4 +22,19 @@ public class UserService {
     public List<User> findAllUsers() {
         return (List<User>) userRepository.findAll();
     }
+
+    public User findByUsernameAndPassword(String username, String password) {
+        try {
+            User user = userRepository.findByUsernameAndPassword(username, password);
+            if (user != null){
+                return user;
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }
