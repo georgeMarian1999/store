@@ -29,6 +29,14 @@ public class Product {
     @OneToMany(mappedBy = "product")
     Set<OrderDetail> orderDetails;
 
+    @ManyToOne
+    @JoinColumn(name = "id_category")
+    Category category;
+
+    public Product() {
+
+    }
+
     public Set<OrderDetail> getOrderDetails() {
         return orderDetails;
     }
@@ -37,13 +45,6 @@ public class Product {
         this.orderDetails = orderDetails;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "id_category")
-    Category category;
-
-    public Product() {
-
-    }
 
     public Product(Integer id, String name, String description, String image, Boolean newProduct, Float price, Integer stock, Date addedDate, Integer sale, Category category) {
         this.id = id;

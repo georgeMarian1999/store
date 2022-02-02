@@ -118,7 +118,7 @@ public class OrderController {
     }
 
     public Float calcSubtotal(Product product, int quantity){
-        return (product.getPrice() - (product.getPrice() * product.getSale()/100) * quantity);
+        return ((product.getPrice() - (product.getPrice() * product.getSale()/100)) * quantity);
     }
 
     public int calcShipping(double subtotal){
